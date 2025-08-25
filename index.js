@@ -1,5 +1,10 @@
 const express = require('express')
 const session = require('express-session')
+const fs = require('fs');
+
+// Write credentials.json from environment variable
+fs.writeFileSync('credentials.json', process.env.GOOGLE_CREDENTIALS);
+
 const getSheetData = require('./login_auth');
 const info = require('./info_data');
 const { getUserHours, addUserHour, deleteUserHour } = require('./hr_data');

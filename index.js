@@ -1,16 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-// Dynamically write credentials.json before any module loads it
-const credsPath = path.join(__dirname, 'credentials.json');
-fs.writeFileSync(credsPath, process.env.GOOGLE_CREDENTIALS);
+// Dynamically create credentials.json from environment variable
+const CREDENTIALS_PATH = path.join(__dirname, 'credentials.json');
+fs.writeFileSync(CREDENTIALS_PATH, process.env.GOOGLE_CREDENTIALS);
 
-const express = require('express')
-const session = require('express-session')
+// Other constants
+const express = require('express');
+const session = require('express-session');
+
 const getSheetData = require('./login_auth');
 const info = require('./info_data');
 const { getUserHours, addUserHour, deleteUserHour } = require('./hr_data');
-const {checkLoggedIn, bypassLogin} = require('./middlewares')
+const { checkLoggedIn, bypassLogin } = require('./middlewares');
 
 const quotes = [
     "“Volunteering is an act of heroism on a grand scale. And it matters profoundly. It does more than help people beat the odds; it changes the odds.” -Bill Clinton",

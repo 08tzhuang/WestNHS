@@ -1,0 +1,21 @@
+h1 {
+    font-size: 45px;
+}
+body {
+    background-image: url("/images/bg_3.JPG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 30px;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    font-size: 20px;
+    color: white
+}
+button {
+    font-size: 15px;   /* bigger text inside buttons */
+    padding: 8px 12px; /* makes buttons taller & wider */
+}
+  
+  

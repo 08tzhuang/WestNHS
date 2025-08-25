@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/styles/style.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+</head>
+<body>
+    <h1>Calendar</h1>
+    <h2>Upcoming Events:</h2>
+
+    <p>Debug link: <%= imageUrl %></p>
+
+
+    <% if (imageUrl) { %>
+        <img src="<%- imageUrl %>" alt="Calendar Image" style="width: 200px; height: auto;">
+    <% } else { %>
+        <p>No calendar image available.</p>
+    <% } %>
+
+    <ul>
+        <% if(events.length === 0) { %>
+            <li>No upcoming events.</li>
+        <% } else { %>
+            <% events.forEach(event => { %>
+            <li><%= event %></li>
+            <% }) %>
+        <% } %>
+    </ul>
+
+    <a href="/">
+        <button>Back to Home</button>
+    </a>
+</body>
+</html>

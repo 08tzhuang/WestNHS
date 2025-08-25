@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/styles/style.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Hi <%= user.firstName %>!</h1>
+
+    <div style="margin-top: 20px; font-size: 28; font-style: italic;">
+        <%= quote %>
+    </div>      
+    <br><br>
+    <a href="/calendar">
+        <button>Go to Calendar</button>
+    </a>
+    <br><br>
+    <a href="/hrlog">
+        <button>Go to Hour Log</button>
+    </a>
+    <br><br>
+    <a href="/notifs">
+        <button>Go to Notifications</button>
+    </a>
+    <br><br>
+    <a href="/settings">
+        <button>Go to Settings</button>
+    </a>
+</body>
+</html>

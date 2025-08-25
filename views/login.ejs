@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/styles/style.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <img src="/images/wolf_no_bg.png" alt="wolf" style="width: 200px; height: auto;">
+    <form action="/login" method="post">
+        <p for="id">ID:</p>
+        <input id="id" type="text" name="id">
+        
+        <p for="firstName">First Name:</p>
+        <input id="firstName" type="text" name="firstName">
+
+        <p for="lastName">Last Name:</p>
+        <input id="lastName" type="text" name="lastName">
+        <br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <% if(error) {%>
+        <p><%=error%></p>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/styles/style.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+</head>
+<body>
+    <h1>Notifications</h1>
+
+    <ul>
+        <% if(notifs.length === 0) { %>
+            <li>No new notifications.</li>
+        <% } else { %>
+            <% notifs.forEach(event => { %>
+            <li><%= event %></li>
+            <% }) %>
+        <% } %>
+    </ul>
+
+    <a href="/">
+        <button>Back to Home</button>
+    </a>
+</body>
+</html>

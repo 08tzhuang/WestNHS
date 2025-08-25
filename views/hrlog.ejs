@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="/styles/style.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hr Log</title>
+</head>
+<body>
+    <h1>Hour Log</h1>
+    <h2>User: <%= user.firstName %> <%= user.lastName %> (<%= user.id %>)</h2>
+    <p>Total Hours: <%= totalHours %></p>
+    <p>Penalty / Extra Hours: <%= penaltyHours %></p>
+    <p>Meeting Attendence</p>
+    <p>1.  <%= m1 %></p>
+    <p>2.  <%= m2 %></p>
+    <p>3.  <%= m3 %></p>
+
+    <h2>Your Volunteer Hours</h2>
+
+<div id="hour-list" style="border:1px solid #ccc; max-height:300px; overflow-y:auto; padding:10px;">
+    <% if (entries.length === 0) { %>
+        <p>No entries yet.</p>
+    <% } else { %>
+        <ul>
+            <% entries.forEach((entry, index) => { %>
+                <li>
+                  <strong><%= entry.date %></strong>: <%= entry.hours %> hour(s) - <%= entry.description %>
+                  <form action="/hrlog/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="index" value="<%= index %>">
+                    <button type="submit">Delete</button>
+                  </form>
+                </li>
+              <% }); %>              
+          </ul>          
+    <% } %>
+</div>
+
+<button onclick="document.getElementById('popup').style.display='block'">Add Entry</button>
+
+<!-- Popup Modal -->
+<div id="popup" style="display:none; position:fixed; top:20%; left:35%; background:#fff; padding:20px; border:1px solid #ccc;">
+    <form action="/hrlog/add" method="POST">
+        <label>Date: <input type="date" name="date" required></label><br>
+        <label>Hours: <input type="number" name="hours" step="0.5" required></label><br>
+        <label>Organizations: <input type="text" name="description" required></label><br>
+        <button type="submit">Submit</button>
+        <button type="button" onclick="document.getElementById('popup').style.display='none'">Cancel</button>
+    </form>
+</div>
+<br><br>
+<a href="/">
+    <button>Back to Home</button>
+</a>
+</body>
+</html>

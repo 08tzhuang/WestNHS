@@ -1,10 +1,12 @@
+const fs = require('fs');
+const path = require('path');
+
+// Dynamically write credentials.json before any module loads it
+const credsPath = path.join(__dirname, 'credentials.json');
+fs.writeFileSync(credsPath, process.env.GOOGLE_CREDENTIALS);
+
 const express = require('express')
 const session = require('express-session')
-const fs = require('fs');
-
-// Write credentials.json from environment variable
-fs.writeFileSync('credentials.json', process.env.GOOGLE_CREDENTIALS);
-
 const getSheetData = require('./login_auth');
 const info = require('./info_data');
 const { getUserHours, addUserHour, deleteUserHour } = require('./hr_data');

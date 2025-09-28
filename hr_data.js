@@ -3,7 +3,8 @@ const { google } = require('googleapis');
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const SPREADSHEET_ID = '1UsqyeMhIihMWYK9JWfIoGK-TX7kU1tk-r0yj3kP01_8';
-const SHEET_NAME = 'Hour Log'; // Adjust if your sheet name is different
+const SHEET_NAME = 'Hour Log'; 
+const PEOPLE_SHEET = 'People';
 
 function getCredentials() {
   return JSON.parse(process.env.GOOGLE_CREDENTIALS);
@@ -42,7 +43,23 @@ async function getUserHours(userId) {
   return { entries, totalHours };
 }
 
-async function addUserHour(userId, date, hours, description, firstName, lastName) {
+// 🔹 Now accepts peopleRow
+async function updatePeopleSheet(peopleRow, totalHours) {
+  await initSheets();
+
+  const range = `${PEOPLE_SHEET}!D${peopleRow}`; 
+  // no +2, because peopleRow is already the actual sheet row index
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SPREADSHEET_ID,
+    range,
+    valueInputOption: 'USER_ENTERED',
+    resource: { values: [[totalHours]] },
+  });
+}
+
+// 🔹 Pass peopleRow into here
+async function addUserHour(userId, date, hours, description, firstName, lastName, peopleRow) {
   await initSheets();
   const fullName = `${firstName} ${lastName}`;
   const row = [userId, date, hours, description, fullName];
@@ -53,9 +70,12 @@ async function addUserHour(userId, date, hours, description, firstName, lastName
     valueInputOption: 'USER_ENTERED',
     resource: { values: [row] },
   });
+
+  const { totalHours } = await getUserHours(userId);
+  await updatePeopleSheet(peopleRow, totalHours);
 }
 
-async function deleteUserHour(userId, indexToDelete) {
+async function deleteUserHour(userId, indexToDelete, peopleRow) {
   await initSheets();
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID,
@@ -81,6 +101,9 @@ async function deleteUserHour(userId, indexToDelete) {
     spreadsheetId: SPREADSHEET_ID,
     range: rangeToClear,
   });
+
+  const { totalHours } = await getUserHours(userId);
+  await updatePeopleSheet(peopleRow, totalHours);
 }
 
 module.exports = { getUserHours, addUserHour, deleteUserHour };
